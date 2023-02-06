@@ -1,0 +1,55 @@
+﻿@if(_employee != null){
+    <div class="modal fade d-block show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Employee Quick View</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @onclick="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="col row">
+                        <div class="form-group d-inline-flex">
+                            <div class="col-4">
+                                <label>Employee ID</label>
+                            </div>
+                            <div class="col-8">
+                                <label type="text">@_employee?.EmployeeId</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group d-inline-flex">
+                            <div class="col-4">
+                                <label>First Name</label>
+                            </div>
+                            <div class="col-8">
+                                <label type="text">@_employee?.FirstName</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group d-inline-flex">
+                            <div class="col-4">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-8">
+                                <label type="text">@_employee?.LastName</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group d-inline-flex">
+                            <div class="col-4">
+                                <label>Birthdate</label>
+                            </div>
+                            <div class="col-8">
+                                <label type="text">@_employee?.BirthDate</label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="Close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
