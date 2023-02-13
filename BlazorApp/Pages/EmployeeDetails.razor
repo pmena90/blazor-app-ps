@@ -1,6 +1,6 @@
 ﻿@page "/employeedetails/{employeeId}"
-
 <PageTitle>Details of @Employee?.FirstName @Employee?.LastName</PageTitle>
+@attribute [Authorize]
 
 @if(Employee != null)
 {

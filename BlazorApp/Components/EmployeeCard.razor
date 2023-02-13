@@ -22,7 +22,7 @@
             </button>
             @*<a href="@($"employeedetails/{Employee.EmployeeId}")" class="btn btn-sm btn-outline-primary ms-2 mb-1">Full Details</a>*@
             <a @onclick="() => NavigateToDetails(Employee)" class="btn btn-sm btn-outline-primary ms-2 mb-1">Full Details</a>
-            <a @onclick="() => NavigateToEdit(Employee)" class="btn btn-sm btn-outline-primary ms-2 mb-1">Edit</a>
+            <a id="detailnavlink" @onclick="() => NavigateToEdit(Employee)" class="btn btn-sm btn-outline-primary ms-2 mb-1">Edit</a>
            
         </div>
     </div>

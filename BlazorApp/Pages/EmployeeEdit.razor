@@ -1,6 +1,7 @@
 ﻿@page "/employeeedit"
 @page "/employeeedit/{EmployeeId}"
 @using BlazorApp.Shared.Domain;
+@attribute [Authorize]
 
 @if(@Saved == false){
     <section class="employee-edit">
