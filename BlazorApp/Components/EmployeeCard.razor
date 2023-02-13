@@ -5,7 +5,15 @@
         </div>
         <div class="card-body employee-card text-center">
             <div class="mb-3">
-                <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="employee-img rounded-circle" />
+                @if (String.IsNullOrEmpty(@Employee.ImageName))
+                {
+                    <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="employee-img rounded-circle" />
+                }
+                else
+                {
+                    <img src="@Employee.ImageName" class="employee-img rounded-circle img-fluid" />
+                    
+                }
             </div>
 
             <button class="btn btn-primary btn-sm mb-1" 
@@ -14,6 +22,7 @@
             </button>
             @*<a href="@($"employeedetails/{Employee.EmployeeId}")" class="btn btn-sm btn-outline-primary ms-2 mb-1">Full Details</a>*@
             <a @onclick="() => NavigateToDetails(Employee)" class="btn btn-sm btn-outline-primary ms-2 mb-1">Full Details</a>
+            <a @onclick="() => NavigateToEdit(Employee)" class="btn btn-sm btn-outline-primary ms-2 mb-1">Edit</a>
            
         </div>
     </div>

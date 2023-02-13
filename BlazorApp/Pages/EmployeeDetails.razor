@@ -7,7 +7,15 @@
     <div class="row">
         <div class="col-3">
             <div class="mb-3">
-                <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="employee-img rounded-circle" />
+                @if (String.IsNullOrEmpty(@Employee.ImageName))
+                {
+                    <img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{Employee.EmployeeId}.jpg")" class="employee-img rounded-circle" />
+                }
+                else
+                {
+                    <img src="@Employee.ImageName" class="employee-img rounded-circle img-fluid" />
+
+                }
             </div>
         </div>
          <div class="col-9">
@@ -46,6 +54,10 @@
                     <div class="col-8">
                 <label type="text">@Employee?.BirthDate</label>
                     </div>
+                </div>
+
+                <div class="col-12 col-xxl-4">
+                    <Map Zoom="10" Markers="MapMarkers"></Map>
                 </div>
 
                 <div class="form-group d-inline-flex mt-4">

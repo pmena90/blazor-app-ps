@@ -4,7 +4,7 @@ namespace BlazorApp.Services
 {
     public interface IEmployeeDataService
     {
-        Task<IEnumerable<Employee>> GetEmployees();
+        Task<IEnumerable<Employee>> GetEmployees(bool refreshRequierd = false);
 
         Task<Employee> GetEmployee(int id);
 

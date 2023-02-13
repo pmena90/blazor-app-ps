@@ -1,0 +1,224 @@
+﻿@page "/employeeedit"
+@page "/employeeedit/{EmployeeId}"
+@using BlazorApp.Shared.Domain;
+
+@if(@Saved == false){
+    <section class="employee-edit">
+    <h1 class="page-title mb-3">Details for employee @Employee.FirstName @Employee.LastName</h1>
+
+    <EditForm Model="@Employee" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        @if (StatusClass.Contains("alert"))
+        {
+            <div class="@StatusClass mb-4">@Message</div>
+        }
+
+        @if(@Employee.EmployeeId == 0){
+            <div class="row mb-3">
+                <label for="iamge" class="col-form-label col-md-3">Select Image: </label>
+                <div class="col-md-8">
+                    <InputFile id="image" OnChange="OnInputFileChange"/>
+                </div>
+            </div>
+        }
+
+        <div class="row mb-3">
+            <label for="firstName" class="col-form-label col-md-3">First Name: </label>
+            <div class="col-md-8">
+                <InputText id="firstName" @bind-Value="@Employee.FirstName" class="form-control col-md-8" placeholder="Enter last name" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.FirstName)" />
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="lastName" class="col-form-label col-md-3">Last Name: </label>
+            <div class="col-md-8">
+                <InputText id="lastName" @bind-Value="@Employee.LastName" class="form-control col-md-8" placeholder="Enter last name" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.LastName)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="birthdate" class="col-form-label col-md-3">BirthDate: </label>
+            <div class="col-md-8">
+                <InputDate id="birthdate" @bind-Value="@Employee.BirthDate" class="form-control col-md-8" placeholder="" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.BirthDate)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="email" class="col-form-label col-md-3">Email: </label>
+            <div class="col-md-8">
+                <InputText id="email" @bind-Value="@Employee.Email" class="form-control col-md-8" placeholder="pmena@gmail.com" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Email)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="jobcategory" class="col-form-label col-md-3">Job Category: </label>
+            <div class="col-md-8">
+                <InputSelect id="jobcategory" @bind-Value="@Employee.JobCategoryId" class="form-control col-md-8">
+                    @foreach (var jobCategory in JobCategories)
+                    {
+                        <option value="@jobCategory.JobCategoryId">@jobCategory.JobCategoryName</option>
+                    }
+                </InputSelect>
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.JobCategoryId)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="country" class="col-form-label col-md-3">Country: </label>
+            <div class="col-md-8">
+                <InputSelect id="country" @bind-Value="@Employee.CountryId" class="form-control col-md-8" >
+                    @foreach (var country in CountryList)
+                    {
+                        <option value="@country.CountryId">@country.Name</option>
+                    }
+                </InputSelect>
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.CountryId)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="city" class="col-form-label col-md-3">City: </label>
+            <div class="col-md-8">
+                <InputText id="city" @bind-Value="@Employee.City" class="form-control col-md-8" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.City)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="street" class="col-form-label col-md-3">Street: </label>
+            <div class="col-md-8">
+                    <InputText id="street" @bind-Value="@Employee.Street" class="form-control col-md-8" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Street)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="zip" class="col-form-label col-md-3">Zip: </label>
+            <div class="col-md-8">
+                <InputText id="zip" @bind-Value="@Employee.Zip" class="form-control col-md-8" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Zip)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="phoneNumber" class="col-form-label col-md-3">Phone Number: </label>
+            <div class="col-md-8">
+                <InputText id="phoneNumber" @bind-Value="@Employee.PhoneNumber" class="form-control col-md-8" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.PhoneNumber)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="longitude" class="col-form-label col-md-3">Longitude: </label>
+            <div class="col-md-8">
+                <InputNumber id="longitude" @bind-Value="@Employee.Longitude" class="form-control col-md-8" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Longitude)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="latitude" class="col-form-label col-md-3">Latitude: </label>
+            <div class="col-md-8">
+                <InputNumber id="latitude" @bind-Value="@Employee.Latitude" class="form-control col-md-8" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Latitude)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-8 offset-md-3">
+                <div class="form-check">
+                    <label for="smoker" class="form-check-label">Smoker</label>
+                    <InputCheckbox id="smoker" class="form-check-input" @bind-Value="@Employee.Smoker">
+                    </InputCheckbox>
+                        <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Smoker)" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <InputRadioGroup name="genderRadioGroup" @bind-Value="@Employee.Gender">
+                <label class="col-form-label col-md-3">Gender: </label>
+                <div class="col-md-8">
+                    @foreach (var gender in (Gender[])Enum.GetValues(typeof(Gender)))
+                    {
+                        <InputRadio Name="genderRadioGroup" Value="gender" class="form-check-input" />
+                        <label class="form-check-label">
+                            @gender
+                        </label>
+                    }
+                </div>
+            </InputRadioGroup>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Gender)" />
+
+        </div>
+
+        <div class="row mb-3">
+            <label for="maritalStatus" class="col-form-label col-md-3">Marital Status: </label>
+            <div class="col-md-8">
+                <InputSelect id="maritalStatus" @bind-Value="@Employee.MaritalStatus" class="form-control col-md-8">
+                    <option value="@(MaritalStatus.Single)">Single</option>
+                    <option value="@(MaritalStatus.Married)">Married</option>
+                    <option value="@(MaritalStatus.Other)">Other</option>
+                    
+                </InputSelect>
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.MaritalStatus)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="joinedDate" class="col-form-label col-md-3">Joined Date: </label>
+            <div class="col-md-8">
+                <InputDate id="joinedDate" @bind-Value="@Employee.JoinedDate" class="form-control col-md-8" />
+                <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.JoinedDate)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="exitDate" class="col-form-label col-md-3">Exit Date: </label>
+            <div class="col-md-8">
+                <InputDate id="exitDate" @bind-Value="@Employee.ExitDate" class="form-control col-md-8" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.ExitDate)" />
+
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label for="comment" class="col-form-label col-md-3">Comment: </label>
+            <div class="col-md-8">
+                <InputTextArea id="comment" Required @bind-Value="@Employee.Comment" class="form-control col-md-8" />
+                    <ValidationMessage class="offset-md-3 col-md-8" For="@(()=> Employee.Comment)" />
+
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary me-1">Save Employee</button>
+
+        @if(@Employee.EmployeeId > 0){
+            <button type="button" class="btn btn-danger my-1" @onclick="@DeleteEmployee">Delete</button>
+        }
+    </EditForm>
+</section>
+
+}else{
+    <div class="@StatusClass mb-4">@Message</div>
+    <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">Back to Overview</button>
+}

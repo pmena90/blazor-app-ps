@@ -26,5 +26,10 @@ namespace BlazorApp.Components
         {
             NavigationManager.NavigateTo($"employeedetails/{employee.EmployeeId}");
         }
+
+        public void NavigateToEdit(Employee employee)
+        {
+            NavigationManager.NavigateTo($"employeeedit/{employee.EmployeeId}");
+        }
     }
 }
